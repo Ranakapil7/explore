@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-peach: #FFBE98;
+  --color-peach-light: #FFE6D9;
+}
+
+body {
+  @apply bg-peach-light text-gray-800;
+}
+
+.btn-primary {
+  @apply bg-peach text-[#6B4423] font-medium px-4 py-2 rounded-xl 
+         hover:bg-opacity-90 transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-white text-[#6B4423] font-medium px-4 py-2 rounded-xl 
+         border border-peach hover:bg-peach-light transition-colors duration-200;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 rounded-xl border border-gray-300 
+         focus:border-peach focus:ring-1 focus:ring-peach focus:outline-none;
+}

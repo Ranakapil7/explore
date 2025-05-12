@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-peach-light">
+    <ActionBar title="{{ experience.title }}" class="bg-peach text-[#6B4423]">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" color="#6B4423" />
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <!-- Image Gallery -->
+            <ScrollView orientation="horizontal" class="mb-6">
+                <StackLayout orientation="horizontal">
+                    <Image src="{{ experience.imageUrl }}" width="280" height="180" stretch="aspectFill" class="rounded-2xl mr-3" />
+                    <Image src="{{ experience.imageUrl }}" width="280" height="180" stretch="aspectFill" class="rounded-2xl mr-3" />
+                    <Image src="{{ experience.imageUrl }}" width="280" height="180" stretch="aspectFill" class="rounded-2xl" />
+                </StackLayout>
+            </ScrollView>
+
+            <!-- Title and Rating -->
+            <GridLayout columns="*, auto" class="mb-6">
+                <Label text="{{ experience.title }}" class="text-xl text-[#6B4423]" col="0" />
+                <StackLayout orientation="horizontal" col="1">
+                    <Label text="{{ experience.rating }}" class="text-lg text-[#6B4423]" />
+                    <Label text="⭐" class="text-lg" />
+                </StackLayout>
+            </GridLayout>
+
+            <!-- Location -->
+            <GridLayout columns="auto, *" class="bg-white p-4 rounded-2xl mb-6">
+                <Label text="📍" class="text-xl" col="0" />
+                <StackLayout col="1" class="ml-4">
+                    <Label text="{{ experience.location.address }}" class="text-[#6B4423]" />
+                    <Label text="View on map" class="text-peach" tap="{{ onOpenMap }}" />
+                </StackLayout>
+            </GridLayout>
+
+            <!-- Description -->
+            <Label text="About" class="text-lg text-[#6B4423] mb-2" />
+            <Label text="{{ experience.description }}" textWrap="true" class="text-[#6B4423] opacity-70 mb-6" />
+
+            <!-- Activity Type -->
+            <Label text="Type" class="text-lg text-[#6B4423] mb-2" />
+            <Label text="{{ experience.activityType }}" class="text-[#6B4423] opacity-70 capitalize mb-6" />
+
+            <!-- Mood Score -->
+            <Label text="Recommended Mood" class="text-lg text-[#6B4423] mb-2" />
+            <GridLayout rows="auto, auto, auto" class="mb-6">
+                <Label text="{{ getMoodEmoji(experience.moodScore) }}" class="text-4xl text-center" row="0" />
+                <Progress value="{{ experience.moodScore }}" maxValue="100" class="bg-white mt-2" color="#FFBE98" row="1" />
+                <Label text="{{ getMoodText(experience.moodScore) }}" class="text-center text-[#6B4423] opacity-70 mt-2" row="2" />
+            </GridLayout>
+
+            <!-- Contact Details -->
+            <Label text="Contact" class="text-lg text-[#6B4423] mb-2" />
+            <StackLayout class="bg-white p-4 rounded-2xl mb-6">
+                <GridLayout columns="auto, *" class="mb-3">
+                    <Label text="📞" class="text-xl" col="0" />
+                    <Label text="{{ experience.contactDetails.phone }}" col="1" class="ml-4 text-[#6B4423]" tap="{{ onCall }}" />
+                </GridLayout>
+                <GridLayout columns="auto, *" class="mb-3">
+                    <Label text="📧" class="text-xl" col="0" />
+                    <Label text="{{ experience.contactDetails.email }}" col="1" class="ml-4 text-[#6B4423]" tap="{{ onEmail }}" />
+                </GridLayout>
+                <GridLayout columns="auto, *">
+                    <Label text="🌐" class="text-xl" col="0" />
+                    <Label text="{{ experience.contactDetails.website }}" col="1" class="ml-4 text-peach" tap="{{ onWebsite }}" />
+                </GridLayout>
+            </StackLayout>
+
+            <!-- Rating Section -->
+            <Label text="Rate this Experience" class="text-lg text-[#6B4423] mb-2" />
+            <GridLayout rows="auto, auto" columns="*, *, *, *, *" class="bg-white p-4 rounded-2xl mb-6">
+                <Label text="⭐" class="text-2xl text-center" col="0" tap="{{ onRate }}" data-rating="1" opacity="{{ rating >= 1 ? '1' : '0.3' }}" />
+                <Label text="⭐" class="text-2xl text-center" col="1" tap="{{ onRate }}" data-rating="2" opacity="{{ rating >= 2 ? '1' : '0.3' }}" />
+                <Label text="⭐" class="text-2xl text-center" col="2" tap="{{ onRate }}" data-rating="3" opacity="{{ rating >= 3 ? '1' : '0.3' }}" />
+                <Label text="⭐" class="text-2xl text-center" col="3" tap="{{ onRate }}" data-rating="4" opacity="{{ rating >= 4 ? '1' : '0.3' }}" />
+                <Label text="⭐" class="text-2xl text-center" col="4" tap="{{ onRate }}" data-rating="5" opacity="{{ rating >= 5 ? '1' : '0.3' }}" />
+                <TextView row="1" colSpan="5" text="{{ review }}" hint="Write your review (optional)" class="mt-4" />
+            </GridLayout>
+
+            <!-- Submit Rating Button -->
+            <Button text="Submit Rating" tap="{{ onSubmitRating }}" class="bg-peach text-[#6B4423] font-medium p-4 rounded-2xl mb-4" />
+
+            <!-- Book Now Button -->
+            <Button text="Book Experience" class="bg-peach text-[#6B4423] font-medium p-4 rounded-2xl" tap="{{ onBook }}" />
+        </StackLayout>
+    </ScrollView>
+</Page>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-purple-50">
+    <ActionBar title="Login" class="bg-purple-600 text-white" />
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <!-- Login Type Selection -->
+            <StackLayout class="mb-8">
+                <Label text="Choose Account Type" class="text-lg font-bold text-center mb-4" />
+                <GridLayout columns="*, *" rows="auto, auto" class="mb-4">
+                    <!-- User Type -->
+                    <StackLayout col="0" row="0" class="m-2" tap="{{ onSelectUserType }}">
+                        <Image src="https://raw.githubusercontent.com/NativeScript/code-samples/main/demo-vue/app/assets/images/user.png"
+                               width="80" height="80" class="rounded-full mb-2" />
+                        <Label text="User" 
+                               class="text-center {{ isUserType ? 'text-purple-600 font-bold' : 'text-gray-600' }}" />
+                    </StackLayout>
+                    
+                    <!-- Provider Type -->
+                    <StackLayout col="1" row="0" class="m-2" tap="{{ onSelectProviderType }}">
+                        <Image src="https://raw.githubusercontent.com/NativeScript/code-samples/main/demo-vue/app/assets/images/business.png"
+                               width="80" height="80" class="rounded-full mb-2" />
+                        <Label text="Provider" 
+                               class="text-center {{ !isUserType ? 'text-purple-600 font-bold' : 'text-gray-600' }}" />
+                    </StackLayout>
+                    
+                    <!-- Selection Indicator -->
+                    <StackLayout col="0" row="1" class="h-1 mx-4" backgroundColor="{{ isUserType ? '#9333ea' : '#e5e7eb' }}" />
+                    <StackLayout col="1" row="1" class="h-1 mx-4" backgroundColor="{{ !isUserType ? '#9333ea' : '#e5e7eb' }}" />
+                </GridLayout>
+            </StackLayout>
+
+            <!-- Login Form -->
+            <StackLayout class="bg-white rounded-lg p-6 shadow-md">
+                <Label text="{{ isUserType ? 'User Login' : 'Provider Login' }}" class="text-xl font-bold text-center mb-6" />
+                
+                <StackLayout class="mb-4">
+                    <Label text="Email" class="text-sm font-medium text-gray-600 mb-1" />
+                    <TextField text="{{ email }}" 
+                              hint="Enter your email" 
+                              keyboardType="email" 
+                              autocorrect="false" 
+                              autocapitalizationType="none"
+                              class="p-3 border border-gray-300 rounded-lg" />
+                </StackLayout>
+
+                <StackLayout class="mb-6">
+                    <Label text="Password" class="text-sm font-medium text-gray-600 mb-1" />
+                    <TextField text="{{ password }}" 
+                              hint="Enter your password" 
+                              secure="true"
+                              class="p-3 border border-gray-300 rounded-lg" />
+                </StackLayout>
+
+                <Button text="Login" 
+                        tap="{{ onLogin }}"
+                        class="bg-purple-600 text-white font-medium p-3 rounded-lg mb-3" />
+
+                <Button text="Create Account" 
+                        tap="{{ onRegister }}"
+                        class="bg-transparent text-purple-600 font-medium p-3" />
+
+                <!-- Skip Login Button -->
+                <Button text="Skip Login (Browse as Guest)" 
+                        tap="{{ onSkipLogin }}"
+                        class="bg-gray-200 text-gray-700 font-medium p-3 rounded-lg mt-4" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>

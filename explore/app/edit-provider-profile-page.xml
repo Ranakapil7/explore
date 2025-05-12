@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-peach-light">
+    <ActionBar title="Edit Provider Profile" class="bg-peach text-[#6B4423]">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <!-- Profile Image -->
+            <Image src="{{ provider.avatar }}" class="h-24 w-24 rounded-full mx-auto" stretch="aspectFill" />
+            <Button text="Change Photo" class="bg-transparent text-[#6B4423] mt-2" tap="{{ onChangePhoto }}" />
+            
+            <!-- Basic Info -->
+            <Label text="Business Information" class="text-lg text-[#6B4423] mt-6 mb-4" />
+            <StackLayout class="bg-white p-4 rounded-2xl mb-6">
+                <Label text="Business Name" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <TextField text="{{ provider.name }}" 
+                          hint="Enter business name"
+                          class="mb-4" />
+                
+                <Label text="Bio" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <TextView text="{{ provider.bio }}" 
+                          hint="Tell us about your business"
+                          height="100"
+                          class="mb-4" />
+            </StackLayout>
+            
+            <!-- Contact Details -->
+            <Label text="Contact Information" class="text-lg text-[#6B4423] mb-4" />
+            <StackLayout class="bg-white p-4 rounded-2xl mb-6">
+                <Label text="Email" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <TextField text="{{ provider.contactDetails.email }}" 
+                          hint="Enter email"
+                          keyboardType="email"
+                          class="mb-4" />
+                
+                <Label text="Phone" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <TextField text="{{ provider.contactDetails.phone }}" 
+                          hint="Enter phone number"
+                          keyboardType="phone"
+                          class="mb-4" />
+                
+                <Label text="Website" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <TextField text="{{ provider.contactDetails.website }}" 
+                          hint="Enter website URL"
+                          class="mb-4" />
+            </StackLayout>
+            
+            <!-- Save Button -->
+            <Button text="Save Changes" 
+                    tap="{{ onSave }}"
+                    class="bg-peach text-[#6B4423] font-medium p-4 rounded-2xl" />
+        </StackLayout>
+    </ScrollView>
+</Page>

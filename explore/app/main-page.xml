@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-peach-light">
+    <ActionBar title="Mood Explorer" class="bg-peach text-[#6B4423]">
+        <NavigationButton visibility="collapsed" />
+    </ActionBar>
+    
+    <GridLayout rows="*, auto">
+        <!-- Main Content -->
+        <GridLayout row="0">
+            <!-- Discover Tab -->
+            <GridLayout visibility="{{ currentTab === 'discover' ? 'visible' : 'collapsed' }}" rows="auto, *">
+                <StackLayout row="0" class="p-2 bg-white">
+                    <StackLayout class="mx-auto w-3/4">
+                        <Label text="How are you feeling?" class="text-lg text-center mb-2 text-[#6B4423]" />
+                        <Label text="{{ moodEmoji }}" class="text-3xl text-center mb-1" />
+                        <Slider value="{{ currentMood }}" minValue="0" maxValue="100" class="mb-1" backgroundColor="#FFE6D9" color="#FFBE98" />
+                        <Label text="{{ moodText }}" class="text-base text-center text-[#6B4423]" />
+                    </StackLayout>
+                </StackLayout>
+                
+                <GridLayout row="1" class="mt-4">
+                    <!-- Card Container -->
+                    <GridLayout rows="*, auto" class="mx-4 mb-16">
+                        <!-- Experience Card -->
+                        <GridLayout row="0" pan="{{ onPan }}" tap="{{ onExperienceTap }}" class="bg-white rounded-3xl shadow-md">
+                            <!-- Rating at the top -->
+                            <GridLayout rows="auto, *, auto">
+                                <!-- Rating Container -->
+                                <StackLayout row="0" class="p-4 pb-0">
+                                    <GridLayout columns="*, auto" class="mb-1">
+                                        <Label col="1" class="text-lg">
+                                            <FormattedString>
+                                                <Span text="{{ currentExperience.rating }}" class="font-medium text-[#6B4423]" />
+                                                <Span text=" ⭐" />
+                                            </FormattedString>
+                                        </Label>
+                                    </GridLayout>
+                                </StackLayout>
+                                
+                                <!-- Larger Image -->
+                                <Image row="1" src="{{ currentExperience.imageUrl }}" 
+                                       stretch="aspectFill" 
+                                       height="420"
+                                       class="rounded-2xl mx-2" />
+                                
+                                <!-- Content below image -->
+                                <StackLayout row="2" class="p-5">
+                                    <Label text="{{ currentExperience.title }}" 
+                                           class="text-2xl font-medium text-[#6B4423]" />
+                                    <Label text="{{ currentExperience.description }}" 
+                                           class="text-lg text-[#6B4423] opacity-70 mt-2" 
+                                           textWrap="true" />
+                                    <Label text="{{ currentExperience.location.address }}" 
+                                           class="text-base text-[#6B4423] opacity-60 mt-3" />
+                                </StackLayout>
+                            </GridLayout>
+                        </GridLayout>
+                        
+                        <!-- Action Buttons -->
+                        <GridLayout row="1" columns="*, *" class="mt-6">
+                            <Label col="0" text="✕" class="text-4xl text-center text-[#6B4423] opacity-70" tap="{{ onDislike }}" />
+                            <Label col="1" text="♥" class="text-4xl text-center text-[#FFBE98]" tap="{{ onLike }}" />
+                        </GridLayout>
+                    </GridLayout>
+                </GridLayout>
+            </GridLayout>
+
+            <!-- Liked Tab -->
+            <ScrollView visibility="{{ currentTab === 'liked' ? 'visible' : 'collapsed' }}">
+                <StackLayout class="p-6">
+                    <Label text="Saved Activities" class="text-xl text-[#6B4423] mb-4" />
+                    <Repeater items="{{ likedExperiences }}">
+                        <Repeater.itemTemplate>
+                            <GridLayout columns="auto, *" class="bg-white rounded-2xl shadow-sm mb-4 p-4" tap="{{ $parents['Page'].onSavedExperienceTap }}">
+                                <Image col="0" src="{{ imageUrl }}" width="70" height="70" class="rounded-xl" stretch="aspectFill" />
+                                <StackLayout col="1" class="ml-4">
+                                    <Label text="{{ title }}" class="font-medium text-[#6B4423]" />
+                                    <Label text="{{ description }}" textWrap="true" class="text-[#6B4423] opacity-70" />
+                                    <Label text="{{ location.address }}" class="text-sm text-[#6B4423] opacity-60" />
+                                </StackLayout>
+                            </GridLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+                </StackLayout>
+            </ScrollView>
+
+            <!-- Profile Tab -->
+            <ScrollView visibility="{{ currentTab === 'profile' ? 'visible' : 'collapsed' }}">
+                <StackLayout class="p-6">
+                    <Image src="{{ currentUser.avatar }}" class="h-24 w-24 rounded-full mx-auto" stretch="aspectFill" />
+                    <Label text="{{ currentUser.name }}" class="text-xl text-[#6B4423] text-center mt-4" />
+                    <Label text="{{ currentUser.bio }}" class="text-[#6B4423] opacity-70 text-center mt-2" textWrap="true" />
+                    
+                    <!-- Edit Profile Button -->
+                    <Button text="Edit Profile" 
+                            tap="{{ onEditProfile }}"
+                            class="bg-peach text-[#6B4423] font-medium p-4 rounded-2xl mt-4" />
+            
+                    <Label text="Your Preferences" class="text-lg text-[#6B4423] mt-8 mb-4" />
+                    <GridLayout rows="auto, auto, auto" class="bg-white rounded-2xl shadow-sm p-4">
+                        <Label row="0" text="Activity Types" class="font-medium text-[#6B4423]" />
+                        <Label row="1" text="{{ currentUser.preferences.activityTypes.join(', ') }}" class="text-[#6B4423] opacity-70" />
+                        <Label row="2" text="Max Distance: {{ currentUser.preferences.maxDistance }}km" class="text-[#6B4423] opacity-70 mt-2" />
+                    </GridLayout>
+                </StackLayout>
+            </ScrollView>
+        </GridLayout>
+
+        <!-- Bottom Navigation Bar -->
+        <GridLayout row="1" columns="*, *, *" class="bg-peach p-4">
+            <Label col="0" text="🏠" class="text-2xl text-center text-[#6B4423]" tap="{{ onTabTap }}" data-tab="discover" />
+            <Label col="1" text="♥" class="text-2xl text-center text-[#6B4423]" tap="{{ onTabTap }}" data-tab="liked" />
+            <Label col="2" text="👤" class="text-2xl text-center text-[#6B4423]" tap="{{ onTabTap }}" data-tab="profile" />
+        </GridLayout>
+    </GridLayout>
+</Page>

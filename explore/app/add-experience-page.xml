@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-peach-light">
+    <ActionBar title="{{ isEditing ? 'Edit Experience' : 'Add Experience' }}" class="bg-peach text-[#6B4423]">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <!-- Photos Section -->
+            <Label text="Photos" class="text-sm font-medium text-[#6B4423] mb-2" />
+            <GridLayout rows="auto" class="mb-4">
+                <ScrollView orientation="horizontal">
+                    <StackLayout orientation="horizontal">
+                        <!-- Photo Preview -->
+                        <Repeater items="{{ photos }}">
+                            <Repeater.itemTemplate>
+                                <GridLayout class="mr-2">
+                                    <Image src="{{ url }}" width="100" height="100" stretch="aspectFill" class="rounded-xl" />
+                                    <Label text="✕" class="text-white bg-[#00000080] rounded-full p-1 text-center" 
+                                           tap="{{ $parents['Page'].onRemovePhoto }}"
+                                           horizontalAlignment="right" verticalAlignment="top" />
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                        <!-- Add Photo Button -->
+                        <StackLayout tap="{{ onAddPhoto }}" class="w-[100] h-[100] bg-white rounded-xl mr-2 border-dashed border-2 border-[#6B4423]">
+                            <Label text="+" class="text-3xl text-[#6B4423] text-center" verticalAlignment="center" />
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+
+            <!-- Title -->
+            <Label text="Title" class="text-sm font-medium text-[#6B4423] mb-1" />
+            <TextField text="{{ experience.title }}" 
+                      hint="Enter experience title"
+                      class="p-4 bg-white rounded-xl mb-4" />
+            
+            <!-- Description -->
+            <Label text="Description" class="text-sm font-medium text-[#6B4423] mb-1" />
+            <TextView text="{{ experience.description }}" 
+                      hint="Enter experience description"
+                      height="100"
+                      class="p-4 bg-white rounded-xl mb-4" />
+            
+            <!-- Location -->
+            <Label text="Location" class="text-sm font-medium text-[#6B4423] mb-1" />
+            <TextField text="{{ experience.location.address }}"
+                      hint="Enter location address"
+                      class="p-4 bg-white rounded-xl mb-4" />
+            
+            <!-- Activity Type -->
+            <Label text="Activity Type" class="text-sm font-medium text-[#6B4423] mb-1" />
+            <TextField text="{{ experience.activityType }}"
+                      hint="Enter activity type"
+                      class="p-4 bg-white rounded-xl mb-4" />
+            
+            <!-- Mood Score -->
+            <Label text="Mood Score (0-100)" class="text-sm font-medium text-[#6B4423] mb-1" />
+            <GridLayout rows="auto, auto, auto" class="mb-4">
+                <Label text="{{ getMoodEmoji(experience.moodScore) }}" class="text-4xl text-center" row="0" />
+                <Slider value="{{ experience.moodScore }}" 
+                        minValue="0" 
+                        maxValue="100"
+                        class="mt-2" row="1" />
+                <Label text="{{ getMoodText(experience.moodScore) }}" class="text-center text-[#6B4423] opacity-70 mt-2" row="2" />
+            </GridLayout>
+            
+            <!-- Contact Details -->
+            <Label text="Contact Details" class="text-lg text-[#6B4423] mt-4 mb-2" />
+            <GridLayout rows="auto, auto, auto" columns="auto, *" class="bg-white p-4 rounded-xl mb-4">
+                <Label row="0" col="0" text="Phone" class="text-sm font-medium text-[#6B4423]" />
+                <TextField row="0" col="1" text="{{ experience.contactDetails.phone }}"
+                          hint="Enter phone number"
+                          class="text-right" />
+                
+                <Label row="1" col="0" text="Email" class="text-sm font-medium text-[#6B4423] mt-2" />
+                <TextField row="1" col="1" text="{{ experience.contactDetails.email }}"
+                          hint="Enter email"
+                          class="text-right" />
+                
+                <Label row="2" col="0" text="Website" class="text-sm font-medium text-[#6B4423] mt-2" />
+                <TextField row="2" col="1" text="{{ experience.contactDetails.website }}"
+                          hint="Enter website"
+                          class="text-right" />
+            </GridLayout>
+            
+            <!-- Save Button -->
+            <Button text="{{ isEditing ? 'Update Experience' : 'Add Experience' }}"
+                    tap="{{ onSave }}"
+                    class="bg-peach text-[#6B4423] font-medium p-4 rounded-xl mt-4" />
+        </StackLayout>
+    </ScrollView>
+</Page>

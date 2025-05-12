@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-peach-light">
+    <ActionBar title="Provider Profile" class="bg-peach text-[#6B4423]">
+        <NavigationButton visibility="collapsed" />
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <!-- Provider Info -->
+            <Image src="{{ provider.avatar }}" class="h-24 w-24 rounded-full mx-auto" stretch="aspectFill" />
+            <Label text="{{ provider.name }}" class="text-xl text-[#6B4423] text-center mt-4" />
+            <Label text="{{ provider.bio }}" class="text-[#6B4423] opacity-70 text-center mt-2" textWrap="true" />
+            
+            <!-- Edit Profile Button -->
+            <Button text="Edit Profile" 
+                    tap="{{ onEditProfile }}"
+                    class="bg-peach text-[#6B4423] font-medium p-4 rounded-2xl mt-4" />
+            
+            <!-- Add New Experience -->
+            <Button text="+ Add New Experience" 
+                    tap="{{ onAddExperience }}" 
+                    class="bg-peach text-[#6B4423] font-medium p-4 rounded-2xl mt-4" />
+            
+            <!-- My Experiences -->
+            <Label text="My Experiences" class="text-xl text-[#6B4423] mt-8 mb-4" />
+            <Repeater items="{{ experiences }}">
+                <Repeater.itemTemplate>
+                    <GridLayout columns="auto, *, auto" class="bg-white rounded-2xl shadow-sm mb-4 p-4">
+                        <Image col="0" src="{{ imageUrl }}" width="70" height="70" class="rounded-xl" stretch="aspectFill" />
+                        <StackLayout col="1" class="ml-4">
+                            <Label text="{{ title }}" class="font-medium text-[#6B4423]" />
+                            <Label text="{{ description }}" textWrap="true" class="text-[#6B4423] opacity-70" />
+                            <Label text="{{ location.address }}" class="text-sm text-[#6B4423] opacity-60" />
+                            <Label text="{{ rating }} ⭐" class="text-sm text-[#6B4423] mt-1" />
+                        </StackLayout>
+                        <Label col="2" text="✏️" class="text-xl" tap="{{ $parents['Page'].onEditExperience }}" />
+                    </GridLayout>
+                </Repeater.itemTemplate>
+            </Repeater>
+        </StackLayout>
+    </ScrollView>
+</Page>

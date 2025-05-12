@@ -1,0 +1,14 @@
+<GridLayout rows="*, auto" class="bg-white rounded-lg shadow-md m-2">
+    <Image src="{{ imageUrl }}" stretch="aspectFill" height="200" row="0" />
+    <StackLayout row="1" class="p-4">
+        <Label text="{{ title }}" class="text-xl font-bold" />
+        <Label text="{{ description }}" textWrap="true" class="text-gray-600 my-2" />
+        <GridLayout columns="auto, *, auto" class="mt-2">
+            <Label text="{{ location.address }}" col="0" class="text-sm text-gray-500" />
+            <StackLayout col="2" orientation="horizontal">
+                <Label text="{{ rating }}" class="text-sm font-bold" />
+                <Label text="★" class="text-yellow-500" />
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
+</GridLayout>

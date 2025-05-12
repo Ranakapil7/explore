@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Pantone 2024 - Peach Fuzz and complementary colors */
+.peach-fuzz {
+    color: #FFBE98; /* Peach Fuzz */
+}
+
+.bg-peach {
+    background-color: #FFBE98;
+}
+
+.bg-peach-light {
+    background-color: #FFE6D9;
+}
+
+.text-peach {
+    color: #FFBE98;
+}
+
+.btn-dislike {
+    color: #FFB3B3;
+    font-size: 32;
+}
+
+.btn-like {
+    color: #FFBE98;
+    font-size: 32;
+}
+
+.nav-icon {
+    font-size: 24;
+    color: #6B4423;
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-peach-light">
+    <ActionBar title="Edit Profile" class="bg-peach text-[#6B4423]">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <!-- Profile Image -->
+            <Image src="{{ user.avatar }}" class="h-24 w-24 rounded-full mx-auto" stretch="aspectFill" />
+            <Button text="Change Photo" class="bg-transparent text-[#6B4423] mt-2" tap="{{ onChangePhoto }}" />
+            
+            <!-- Basic Info -->
+            <Label text="Basic Information" class="text-lg text-[#6B4423] mt-6 mb-4" />
+            <StackLayout class="bg-white p-4 rounded-2xl mb-6">
+                <Label text="Name" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <TextField text="{{ user.name }}" 
+                          hint="Enter your name"
+                          class="mb-4" />
+                
+                <Label text="Bio" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <TextView text="{{ user.bio }}" 
+                          hint="Tell us about yourself"
+                          height="100"
+                          class="mb-4" />
+            </StackLayout>
+            
+            <!-- Preferences -->
+            <Label text="Preferences" class="text-lg text-[#6B4423] mb-4" />
+            <StackLayout class="bg-white p-4 rounded-2xl mb-6">
+                <Label text="Activity Types" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <GridLayout columns="auto, auto, auto" class="mb-4">
+                    <Label text="Outdoor" class="text-center p-2 m-1" 
+                           col="0"
+                           tap="{{ onToggleActivityType }}"
+                           data-type="outdoor"
+                           class="{{ isActivityTypeSelected('outdoor') ? 'bg-peach' : 'bg-gray-200' }} rounded-xl" />
+                    <Label text="Wellness" class="text-center p-2 m-1"
+                           col="1"
+                           tap="{{ onToggleActivityType }}"
+                           data-type="wellness"
+                           class="{{ isActivityTypeSelected('wellness') ? 'bg-peach' : 'bg-gray-200' }} rounded-xl" />
+                    <Label text="Cultural" class="text-center p-2 m-1"
+                           col="2"
+                           tap="{{ onToggleActivityType }}"
+                           data-type="cultural"
+                           class="{{ isActivityTypeSelected('cultural') ? 'bg-peach' : 'bg-gray-200' }} rounded-xl" />
+                </GridLayout>
+                
+                <Label text="Maximum Distance (km)" class="text-sm font-medium text-[#6B4423] mb-1" />
+                <GridLayout rows="auto, auto" class="mb-4">
+                    <Slider value="{{ user.preferences.maxDistance }}" 
+                            minValue="1" 
+                            maxValue="100"
+                            row="0" />
+                    <Label text="{{ user.preferences.maxDistance }}km" 
+                           class="text-center text-[#6B4423]"
+                           row="1" />
+                </GridLayout>
+            </StackLayout>
+            
+            <!-- Save Button -->
+            <Button text="Save Changes" 
+                    tap="{{ onSave }}"
+                    class="bg-peach text-[#6B4423] font-medium p-4 rounded-2xl" />
+        </StackLayout>
+    </ScrollView>
+</Page>

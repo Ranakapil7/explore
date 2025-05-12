@@ -1,0 +1,5 @@
+<StackLayout class="p-4 bg-white rounded-lg shadow-sm">
+    <Label text="How are you feeling today?" class="text-lg font-semibold mb-2" />
+    <Slider value="{{ currentMood }}" minValue="0" maxValue="100" class="mb-2" />
+    <Label text="{{ moodText }}" class="text-center text-gray-600" />
+</StackLayout>
